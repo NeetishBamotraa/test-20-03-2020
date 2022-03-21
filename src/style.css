@@ -1,3 +1,68 @@
-h1, p {
-  font-family: Lato;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
+
+/* NOTE TO EVALUATER:  I COULD NOT FIND SF PRO DISPLAY ON GOOGLE FONTS, SO I HAVE USED SOURCE SANS PRO FONT AT ITS PLACE  */
+
+/*------------------------------------------------FONTS---------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;800;900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+
+/*
+font-family: 'Inter', sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+*/
+
+/*------------------------------------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------------NavBar START----------------------------------------------------------*/
+.navbar {
+  width: 100vw;
+  height: 10vh;
+  background-color: #101010;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 0 2vw;
+}
+
+.navbar > .title {
+  width: fit-content;
+  height: 6vh;
+  line-height: 6vh;
+  font-size: 4vh;
+  font-family: 'Source Sans Pro';
+  font-weight: 700;
+}
+
+.navbar > .user {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6vh;
+}
+
+.navbar > .user > .name {
+  width: fit-content;
+  height: 4vh;
+  line-height: 4vh;
+  font-size: 2vh;
+  font-family: 'Inter';
+  font-weight: 700;
+}
+
+.navbar > .user > .image {
+  height: 5vh;
+  margin-left: 2vw;
+  object-fit: contain;
+}
+
+.navbar > .user > .image > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+/*----------------------------------------------------NavBar END----------------------------------------------------------*/
