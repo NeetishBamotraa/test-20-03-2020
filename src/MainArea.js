@@ -1,52 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const sortRidesData = (x, y) => {
-  const ridesData = [...x];
-  const userData = [...y];
-  ridesData[0].sort((a, b) => {
-    let amin = Math.abs(a.station_path[0] - userData[0].station_code);
-    let bmin = Math.abs(b.station_path[0] - userData[0].station_code);
-
-    a.station_path.forEach((aval) => {
-      if (amin > Math.abs(aval - userData[0].station_code)) {
-        amin = Math.abs(aval - userData[0].station_code);
-      }
-    });
-
-    b.station_path.forEach((bval) => {
-      if (bmin > Math.abs(bval - userData[0].station_code)) {
-        bmin = Math.abs(bval - userData[0].station_code);
-      }
-    });
-
-    console.log(amin, bmin, a.station_path, b.station_path);
-
-    if (amin < bmin) return 1;
-    if (amin > bmin) return -1;
-    return 0;
-  });
-
-  return ridesData;
-};
-
-export default function MainArea({ userData, ridesData, setRidesData }) {
-  const [loading, setLoading] = useState(false);
+export default function MainArea({ userData, ridesData }) {
   const [option, setOption] = useState('1');
   const [loc, setLoc] = useState(['N/A', 'N/A']);
 
   const handleOption = (val) => {
-    setLoading(true);
     setOption(val);
   };
 
-  // useEffect(()=>{
-  //   if (userData[0] && ridesData[0]) {
-  //     setRidesData(sortRidesData(ridesData, userData, setRidesData));
-  //     console.log(userData[0].station_code);
-  //     console.log(ridesData)
-  //   }
-  // }, [])
-  
   return (
     <div className="mainarea">
       <div className="mainarea-topbar">
@@ -86,44 +48,88 @@ export default function MainArea({ userData, ridesData, setRidesData }) {
         </div>
       </div>
       <div className="mainarea-rideslist">
-        {loading ? (
-          <h3 style={{ color: 'white' }}>Loading...</h3>
-        ) : (
-          <div className="mainarea-rideslist-card">
-            <div className="image">
-              <img src="https://picsum.photos/200" />
-            </div>
-            <div className="cnt">
-              <div className="line">
-                <div className="title">Ride Id :</div>
-                <div className="value">001</div>
+        {option === '1' &&
+          ridesData &&
+          ridesData.map((item, index) => (
+            <div key={uuidv4()} className="mainarea-rideslist-card">
+              <div className="image">
+                <img src={item.map_url} />
               </div>
-              <div className="line">
-                <div className="title">Origin Station :</div>
-                <div className="value">20</div>
-              </div>
-              <div className="line">
-                <div className="title">station_path :</div>
-                <div className="value">
-                  [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+              <div className="cnt">
+                <div className="line">
+                  <div className="title">Ride Id :</div>
+                  <div className="value">{item.id}</div>
+                </div>
+                <div className="line">
+                  <div className="title">Origin Station :</div>
+                  <div className="value">{item.origin_station_code}</div>
+                </div>
+                <div className="line">
+                  <div className="title">station_path :</div>
+                  <div className="value">
+                    [
+                    {item.station_path.map((val) => (
+                      <span>{val}, </span>
+                    ))}
+                    ]
+                  </div>
+                </div>
+                <div className="line">
+                  <div className="title">Date :</div>
+                  <div className="value">{item.date}</div>
+                </div>
+                <div className="line">
+                  <div className="title">Distance :</div>
+                  <div className="value">{item.distance}</div>
                 </div>
               </div>
-              <div className="line">
-                <div className="title">Date :</div>
-                <div className="value">15th Feb 2022 16:33</div>
-              </div>
-              <div className="line">
-                <div className="title">Distance :</div>
-                <div className="value">0</div>
+              <div className="loc">
+                <div className="loc1">{item.city}</div>
+                <div className="loc1">{item.state}</div>
               </div>
             </div>
-            <div className="loc">
-              <div className="loc1">City Name</div>
-              <div className="loc1">State Name</div>
-            </div>
-          </div>
+          ))}
+
+        {option !== '1' && (
+          <h3 style={{ color: 'white' }}>Work in Progress...</h3>
         )}
       </div>
     </div>
   );
+}
+
+{
+  /* <div className="mainarea-rideslist-card">
+          <div className="image">
+            <img src="https://picsum.photos/200" />
+          </div>
+          <div className="cnt">
+            <div className="line">
+              <div className="title">Ride Id :</div>
+              <div className="value">001</div>
+            </div>
+            <div className="line">
+              <div className="title">Origin Station :</div>
+              <div className="value">20</div>
+            </div>
+            <div className="line">
+              <div className="title">station_path :</div>
+              <div className="value">
+                [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20]
+              </div>
+            </div>
+            <div className="line">
+              <div className="title">Date :</div>
+              <div className="value">15th Feb 2022 16:33</div>
+            </div>
+            <div className="line">
+              <div className="title">Distance :</div>
+              <div className="value">0</div>
+            </div>
+          </div>
+          <div className="loc">
+            <div className="loc1">City Name</div>
+            <div className="loc1">State Name</div>
+          </div>
+        </div> */
 }

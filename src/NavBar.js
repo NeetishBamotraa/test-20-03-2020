@@ -5,11 +5,9 @@ export default function NavBar({ userData }) {
     <div className="navbar">
       <div className="title">Edvora</div>
       <div className="user">
-        <div className="name">
-          {userData[0] && userData[0].name && userData[0].name}
-        </div>
+        <div className="name">{userData && userData.name && userData.name}</div>
         <div className="image">
-          <img src={userData[0] && userData[0].url && userData[0].url} />
+          <img src={userData && userData.url && userData.url} />
         </div>
       </div>
     </div>
