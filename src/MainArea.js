@@ -1,6 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
-export default function MainArea({ userData, ridesData }) {
+const sortRidesData = (x, y) => {
+  const ridesData = [...x];
+  const userData = [...y];
+  ridesData[0].sort((a, b) => {
+    let amin = Math.abs(a.station_path[0] - userData[0].station_code);
+    let bmin = Math.abs(b.station_path[0] - userData[0].station_code);
+
+    a.station_path.forEach((aval) => {
+      if (amin > Math.abs(aval - userData[0].station_code)) {
+        amin = Math.abs(aval - userData[0].station_code);
+      }
+    });
+
+    b.station_path.forEach((bval) => {
+      if (bmin > Math.abs(bval - userData[0].station_code)) {
+        bmin = Math.abs(bval - userData[0].station_code);
+      }
+    });
+
+    console.log(amin, bmin, a.station_path, b.station_path);
+
+    if (amin < bmin) return 1;
+    if (amin > bmin) return -1;
+    return 0;
+  });
+
+  return ridesData;
+};
+
+export default function MainArea({ userData, ridesData, setRidesData }) {
   const [loading, setLoading] = useState(false);
   const [option, setOption] = useState('1');
   const [loc, setLoc] = useState(['N/A', 'N/A']);
@@ -10,48 +39,14 @@ export default function MainArea({ userData, ridesData }) {
     setOption(val);
   };
 
-  let ridesDataNew = [...ridesData]
-
-  // if (ridesData) {
-  //   var rgh = ridesData[0].map(bh=>bh.state);
-  //   console.log(rgh);
-  // }
-
-  // //console.log(ridesData.filter((x) => x.state === rgh[0]));
-
-  console.log(ridesDataNew);
-
-  if (userData[0]) {
-    console.log(userData[0].station_code);
-  }
-
-  if (ridesData[0] && userData[0]) {
-    //console.log(
-      ridesDataNew[0].sort((a, b) => {
-        let amin = Math.abs(a.station_path[0] - userData[0].station_code);
-        let bmin = Math.abs(b.station_path[0] - userData[0].station_code);
-
-        a.station_path.forEach((aval) => {
-          if (amin > Math.abs(aval - userData[0].station_code)) {
-            amin = Math.abs(aval - userData[0].station_code);
-          }
-        });
-
-        b.station_path.forEach((bval) => {
-          if (bmin > Math.abs(bval - userData[0].station_code)) {
-            bmin = Math.abs(bval - userData[0].station_code);
-          }
-        });
-
-        console.log(amin, bmin, a.station_path, b.station_path);
-
-        if (amin < bmin) return 1;
-        if (amin > bmin) return -1;
-        return 0;
-      })
-    //);
-  }
-
+  // useEffect(()=>{
+  //   if (userData[0] && ridesData[0]) {
+  //     setRidesData(sortRidesData(ridesData, userData, setRidesData));
+  //     console.log(userData[0].station_code);
+  //     console.log(ridesData)
+  //   }
+  // }, [])
+  
   return (
     <div className="mainarea">
       <div className="mainarea-topbar">

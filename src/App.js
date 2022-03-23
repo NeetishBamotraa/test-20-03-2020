@@ -4,6 +4,35 @@ import './style.css';
 import NavBar from './NavBar';
 import MainArea from './MainArea';
 
+const sortRidesData = (x, y) => {
+  const ridesData = [...x];
+  const userData = [...y];
+  ridesData.sort((a, b) => {
+    let amin = Math.abs(a.station_path[0] - userData[0].station_code);
+    let bmin = Math.abs(b.station_path[0] - userData[0].station_code);
+
+    a.station_path.forEach((aval) => {
+      if (amin > Math.abs(aval - userData[0].station_code)) {
+        amin = Math.abs(aval - userData[0].station_code);
+      }
+    });
+
+    b.station_path.forEach((bval) => {
+      if (bmin > Math.abs(bval - userData[0].station_code)) {
+        bmin = Math.abs(bval - userData[0].station_code);
+      }
+    });
+
+    console.log(amin, bmin, a.station_path, b.station_path);
+
+    if (amin < bmin) return 1;
+    if (amin > bmin) return -1;
+    return 0;
+  });
+
+  return ridesData;
+};
+
 export default function App() {
   const [ridesData, setRidesData] = useState([]);
   const [userData, setUserData] = useState([]);
@@ -14,12 +43,30 @@ export default function App() {
     fetch('https://assessment.api.vweb.app/rides')
       .then((response) => {
         if (response.ok) {
+          fetch('https://assessment.api.vweb.app/user')
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              }
+              throw response;
+            })
+            .then((data) => {
+              userDatatr = [data];
+              setUserData([data]);
+            })
+            .catch((error) => {
+              console.log('Error while fetching data: ', error);
+              setErrors((preverror) => errors + error);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
           return response.json();
         }
         throw response;
       })
       .then((data) => {
-        setRidesData([...ridesData, data]);
+        setRidesData(data);
       })
       .catch((error) => {
         console.log('Error while fetching data: ', error);
@@ -30,32 +77,36 @@ export default function App() {
       });
   }, []);
 
-  useEffect(() => {
-    fetch('https://assessment.api.vweb.app/user')
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setUserData([...ridesData, data]);
-      })
-      .catch((error) => {
-        console.log('Error while fetching data: ', error);
-        setErrors((preverror) => errors + error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('https://assessment.api.vweb.app/user')
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //       throw response;
+  //     })
+  //     .then((data) => {
+  //       setUserData([data]);
+  //     })
+  //     .catch((error) => {
+  //       console.log('Error while fetching data: ', error);
+  //       setErrors((preverror) => errors + error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, []);
   return (
     <div>
       {loading && <h1>Loading...</h1>}
       {errors && <p>{errors}</p>}
       {!loading && userData && <NavBar userData={userData} />}
       {!loading && userData && ridesData && (
-        <MainArea userData={userData} ridesData={ridesData} />
+        <MainArea
+          userData={userData}
+          ridesData={ridesData}
+          setRidesData={setRidesData}
+        />
       )}
     </div>
   );
