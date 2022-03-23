@@ -53,6 +53,9 @@ export default function App() {
       {loading && <h1>Loading...</h1>}
       {errors && <p>{errors}</p>}
       {!loading && userData && <NavBar userData={userData} />}
+      {!loading && userData && ridesData && (
+        <MainArea userData={userData} ridesData={ridesData} />
+      )}
     </div>
   );
 }
