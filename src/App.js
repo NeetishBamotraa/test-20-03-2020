@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 
 import NavBar from './NavBar';
+import MainArea from './MainArea';
 
 export default function App() {
   const [ridesData, setRidesData] = useState([]);

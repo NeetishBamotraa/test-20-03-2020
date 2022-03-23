@@ -66,3 +66,104 @@ font-family: 'Source Sans Pro', sans-serif;
   border-radius: 100%;
 }
 /*----------------------------------------------------NavBar END----------------------------------------------------------*/
+
+/*-----------------------------------------------------MainArea START-------------------------------------------------------*/
+.mainarea {
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  height: 90vh;
+  width: 100vw;
+  background-color: #292929;
+  padding: 4vh 4vw;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+}
+
+.mainarea-topbar {
+  height: 4vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.mainarea-topbar-options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mainarea-topbar-options > .opt-selected {
+  color: #ffffff;
+  line-height: 4vh;
+  font-size: 2vh;
+  font-weight: 700;
+  margin-right: 1vw;
+  border-bottom: 2px solid #ffffff;
+}
+
+.mainarea-topbar-options > .opt {
+  color: #d0cbcb;
+  line-height: 4vh;
+  font-size: 2vh;
+  font-weight: 400;
+  margin-right: 1vw;
+}
+
+.mainarea-topbar-filterbtn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mainarea-topbar-filterbtn > .icon {
+  height: 2vh;
+  width: 2vh;
+  margin-right: 0.4vw;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.mainarea-topbar-filterbtn > .icon > .line {
+  height: 0.2vh;
+  background-color: white;
+  border-radius: 10px;
+}
+.mainarea-topbar-filterbtn > .icon > .line1 {
+  width: 100%;
+}
+.mainarea-topbar-filterbtn > .icon > .line2 {
+  width: 70%;
+}
+.mainarea-topbar-filterbtn > .icon > .line3 {
+  width: 40%;
+}
+
+.mainarea-topbar-filterbtn > .title {
+  color: #f2f2f2;
+  line-height: 4vh;
+  font-size: 2vh;
+  font-weight: 500;
+}
+
+.mainarea-rideslist {
+  position: relative;
+  /*height: 70vh;*/
+  height: 78vh;
+  width: 100%;
+  border: 1px solid white;
+  overflow-y: auto;
+}
+
+.mainarea-rideslist-card {
+  position: relative;
+  height: 22vh;
+  width: 100%;
+  margin: 1vh 0;
+  border-radius: 10px;
+  background-color: #171717;
+}
+/*-----------------------------------------------------MainArea END-------------------------------------------------------*/
