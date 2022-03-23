@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function NavBar({ userData }) {
-  console.log(userData);
   return (
     <div className="navbar">
       <div className="title">Edvora</div>
